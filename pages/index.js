@@ -14,8 +14,12 @@ import Layout from "@/components/Layouts/Layout";
 
 // auto complete search 
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
+import { useSelector } from "react-redux";
+import ProtectedRoute from "@/components/middleware/ProtectedRoute";
 
 const home = () => {
+  const token = useSelector((state) => state.auth.token)
+  console.log('redux', token);
   const items = [
     {
       id: 0,
@@ -391,8 +395,10 @@ export default home;
 
 home.getLayout = function getLayout(page) {
   return (
-    <Layout>
-      {page}
-    </Layout>
+    <ProtectedRoute>
+      <Layout>
+        {page}
+      </Layout>
+    </ProtectedRoute>
   );
 };
